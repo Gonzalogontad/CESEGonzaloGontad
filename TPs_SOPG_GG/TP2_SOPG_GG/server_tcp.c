@@ -58,6 +58,14 @@ int main()
     printf("Inicio");
     // Creamos socket
     int s = socket(PF_INET,SOCK_STREAM, 0);
+	if (s<0)
+		{
+		printf("Error al crear socket");
+		return 1;
+		}
+	if (setsockopt(s, SOL_SOCKET, SO_REUSEADDR, &(int){ 1 }, sizeof(int)) < 0)
+    	perror("setsockopt(SO_REUSEADDR) failed");
+		
 
     // Cargamos datos de IP:PORT del server
     bzero((char *) &serveraddr, sizeof(serveraddr));
@@ -189,7 +197,6 @@ void uartInit (void)
 void bloquearSign(void)
 {
     sigset_t set;
-    int s;
     sigemptyset(&set);
     sigaddset(&set, SIGINT);
     sigaddset(&set, SIGTERM);
@@ -200,7 +207,6 @@ void bloquearSign(void)
 void desbloquearSign(void)
 {
     sigset_t set;
-    int s;
     sigemptyset(&set);
     sigaddset(&set, SIGINT);
     sigaddset(&set, SIGTERM);
