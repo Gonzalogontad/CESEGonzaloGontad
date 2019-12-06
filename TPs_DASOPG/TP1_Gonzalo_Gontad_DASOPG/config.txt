@@ -1,0 +1,1 @@
+/home/gonzalo/Escritorio/Especializacion/DASSOPG/TP1/cotizaciones.csv
